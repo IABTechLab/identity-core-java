@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import st.digitru.model.Identity;
 
-public class IdentityJsonDeserializer {
+public class IdentityCookieDeserializer {
 
 	private ObjectMapper mapper = new ObjectMapper();
 
