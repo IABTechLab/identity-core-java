@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import st.digitru.error.SerializationException;
 import st.digitru.model.Identity;
 import st.digitru.model.Privacy;
 
@@ -14,7 +15,7 @@ import st.digitru.model.Privacy;
 public class IdentityCookieSerializerTestCase {
 
 	@Test
-	public void simple() {
+	public void simple() throws SerializationException {
 		Identity i1 = new Identity(null, 2, 0, new Privacy(true));
 		String serialized = new IdentityCookieSerializer().serialize(i1);
 		Identity i2 = new IdentityCookieDeserializer().deserialize(serialized);
@@ -23,15 +24,15 @@ public class IdentityCookieSerializerTestCase {
 	}
 
 	@Test
-	public void optOutNullId() {
+	public void optOutNullId() throws SerializationException {
 		String encoded = "eyJpZCI6bnVsbCwia2V5diI6MCwicHJpdmFjeSI6eyJvcHRvdXQiOnRydWV9fQ%3D%3D";
 		Identity i = new IdentityCookieDeserializer().deserialize(encoded);
 		Assert.assertNotNull(i);
 		Assert.assertEquals(new Identity(null, 0, 0, new Privacy(true)), i);
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void malformed() {
+	@Test(expected = SerializationException.class)
+	public void malformed() throws SerializationException {
 		new IdentityCookieDeserializer().deserialize("foobar");
 	}
 
@@ -45,7 +46,7 @@ public class IdentityCookieSerializerTestCase {
 	}
 
 	@Test
-	public void documentationExamples() {
+	public void documentationExamples() throws SerializationException {
 		// example 1
 		String encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
 		Identity i = new IdentityCookieDeserializer().deserialize(encoded);
