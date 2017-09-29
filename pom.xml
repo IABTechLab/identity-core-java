@@ -1,12 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>st.digitru</groupId>
     <artifactId>identity-core</artifactId>
     <packaging>jar</packaging>
     <name>identity-core</name>
     <version>1.0.0-SNAPSHOT</version>
+    <description>Library for DigiTrust identity producers.</description>
+    <url>https://github.com/digi-trust/identity-core-java</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>samtingleff</id>
+            <name>Sam Tingleff</name>
+            <url>http://sam.tingleff.com/</url>
+            <organization>DigiTrust</organization>
+            <organizationUrl>http://www.digitru.st/</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com:digi-trust/identity-core-java.git</connection>
+        <developerConnection>scm:git:git@github.com:digi-trust/identity-core-java.git</developerConnection>
+        <url>https://github.com/digi-trust/identity-core-java</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
