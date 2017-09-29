@@ -14,11 +14,15 @@ import st.digitru.model.Privacy;
 @RunWith(JUnit4.class)
 public class IdentityCookieSerializerTestCase {
 
+	private IdentityCookieSerializer serializer = new IdentityCookieSerializer();
+
+	private IdentityCookieDeserializer deserializer = new IdentityCookieDeserializer();
+
 	@Test
 	public void simple() throws SerializationException {
 		Identity i1 = new Identity(null, 2, 0, new Privacy(true));
-		String serialized = new IdentityCookieSerializer().serialize(i1);
-		Identity i2 = new IdentityCookieDeserializer().deserialize(serialized);
+		String serialized = serializer.serialize(i1);
+		Identity i2 = deserializer.deserialize(serialized);
 		Assert.assertNotNull(i2);
 		Assert.assertEquals(i1, i2);
 	}
@@ -26,20 +30,20 @@ public class IdentityCookieSerializerTestCase {
 	@Test
 	public void optOutNullId() throws SerializationException {
 		String encoded = "eyJpZCI6bnVsbCwia2V5diI6MCwicHJpdmFjeSI6eyJvcHRvdXQiOnRydWV9fQ%3D%3D";
-		Identity i = new IdentityCookieDeserializer().deserialize(encoded);
+		Identity i = deserializer.deserialize(encoded);
 		Assert.assertNotNull(i);
 		Assert.assertEquals(new Identity(null, 0, 0, new Privacy(true)), i);
 	}
 
 	@Test(expected = SerializationException.class)
 	public void malformed() throws SerializationException {
-		new IdentityCookieDeserializer().deserialize("foobar");
+		deserializer.deserialize("foobar");
 	}
 
 	@Test
 	public void ignoredAdditionalFields() throws Exception {
 		String encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsImtleXYiOjQsImZvb2JhciI6NSwicHJpdmFjeSI6eyJvcHRvdXQiOmZhbHNlLCJ4eXoiOiJmb28ifX0%3D";
-		Identity i = new IdentityCookieDeserializer().deserialize(encoded);
+		Identity i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
 				new Identity("jyEB2UHSjLo=", 2, 4, new Privacy(false)),
 				i);
@@ -49,21 +53,21 @@ public class IdentityCookieSerializerTestCase {
 	public void documentationExamples() throws SerializationException {
 		// example 1
 		String encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
-		Identity i = new IdentityCookieDeserializer().deserialize(encoded);
+		Identity i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
 				new Identity("jyEB2UHSjLo=", 2, 0, new Privacy(false)),
 				i);
 
 		// example 2
 		encoded = "eyJpZCI6bnVsbCwidmVyc2lvbiI6MiwicHJpdmFjeSI6eyJvcHRvdXQiOnRydWV9fQ%3D%3D";
-		i = new IdentityCookieDeserializer().deserialize(encoded);
+		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
 				new Identity(null, 2, 0, new Privacy(true)),
 				i);
 
 		// example 3
 		encoded = "eyJpZCI6InFDajlwZlNiRXVnPSIsInZlcnNpb24iOjIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
-		i = new IdentityCookieDeserializer().deserialize(encoded);
+		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
 				new Identity("qCj9pfSbEug=", 2, 0, new Privacy(false)),
 				i);
