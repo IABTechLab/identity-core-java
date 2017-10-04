@@ -15,7 +15,7 @@ import org.junit.runners.JUnit4;
 import st.digitru.model.Identity;
 
 @RunWith(JUnit4.class)
-public class MultithreadIdentityProducerTestCase extends SingleThreadIdentityProducerTestCase {
+public class MultithreadIdentityProducerTestCase extends BaseIdentityProducerTestCase {
 
 	public MultithreadIdentityProducerTestCase() {
 		super(new MultithreadIdentityProducer());
