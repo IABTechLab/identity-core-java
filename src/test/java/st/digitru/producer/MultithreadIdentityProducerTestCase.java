@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 
@@ -24,35 +25,20 @@ public class MultithreadIdentityProducerTestCase extends BaseIdentityProducerTes
 	@Test
 	public void uniqueness() throws Exception {
 		int taskCount = 1000000;
-		ForkJoinPool pool = new ForkJoinPool();
+		Map<String, Integer> uniqueIds = new HashMap<String, Integer>();
 		List<ForkJoinTask<String>> tasks = new ArrayList<ForkJoinTask<String>>(taskCount);
 		for (int i = 0; i < taskCount; ++i) {
-			ForkJoinTask<String> task = new ForkJoinTask<String>() {
-				private String id;
-
+			ForkJoinTask<String> task = ForkJoinPool.commonPool().submit(new Callable<String>() {
 				@Override
-				public String getRawResult() {
-					return id;
-				}
-
-				@Override
-				protected void setRawResult(String value) {
-				}
-
-				@Override
-				protected boolean exec() {
+				public String call() throws Exception {
 					Identity i = producer.create();
-					this.id = i.getId();
-					return true;
+					return i.getId();
 				}
-			};
+			});
 			tasks.add(task);
-			pool.execute(task);
 		}
-		Map<String, Integer> uniqueIds = new HashMap<String, Integer>();
 		for (ForkJoinTask<String> task : tasks) {
-			String id = task.get();
-			uniqueIds.put(id, new Integer(1));
+			uniqueIds.put(task.get(), new Integer(1));
 		}
 		Assert.assertEquals(taskCount, uniqueIds.size());
 	}
