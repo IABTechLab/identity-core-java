@@ -18,7 +18,7 @@ import st.digitru.model.Identity;
 @RunWith(JUnit4.class)
 public class IdentityProducerTestCase {
 
-	private IdentityProducer producer = new IdentityProducer();
+	private SingleThreadIdentityProducer producer = new SingleThreadIdentityProducer();
 
 	@Test
 	public void basics() {
