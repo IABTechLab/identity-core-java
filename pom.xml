@@ -10,7 +10,7 @@
     <artifactId>identity-core</artifactId>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <description>Library for DigiTrust identity producers.</description>
     <url>https://github.com/digi-trust/identity-core-java</url>
     <licenses>
