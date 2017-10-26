@@ -12,9 +12,16 @@ public class SingleThreadIdentityProducer implements IdentityProducer {
 
 	private Base64.Encoder b64;
 
-	public SingleThreadIdentityProducer(Random random) {
+	private String producer;
+
+	public SingleThreadIdentityProducer(Random random, String producer) {
 		this.random = random;
 		this.b64 = Base64.getEncoder();
+		this.producer = producer;
+	}
+
+	public SingleThreadIdentityProducer(Random random) {
+		this(random, null);
 	}
 
 	public SingleThreadIdentityProducer() {
@@ -25,6 +32,6 @@ public class SingleThreadIdentityProducer implements IdentityProducer {
 		byte[] bytes = new byte[8];
 		random.nextBytes(bytes);
 		String id = b64.encodeToString(bytes);
-		return new Identity(id, Constants.CURRENT_ID_VERSION, 0, new Privacy(false));
+		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, 0, new Privacy(false));
 	}
 }

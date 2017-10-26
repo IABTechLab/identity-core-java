@@ -10,8 +10,15 @@ public class MultithreadIdentityProducer implements IdentityProducer {
 
 	private Base64.Encoder b64;
 
-	public MultithreadIdentityProducer() {
+	private String producer;
+
+	public MultithreadIdentityProducer(String producer) {
 		this.b64 = Base64.getEncoder();
+		this.producer = producer;
+	}
+
+	public MultithreadIdentityProducer() {
+		this(null);
 	}
 
 	public Identity create() {
@@ -19,6 +26,6 @@ public class MultithreadIdentityProducer implements IdentityProducer {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		random.nextBytes(bytes);
 		String id = b64.encodeToString(bytes);
-		return new Identity(id, Constants.CURRENT_ID_VERSION, 0, new Privacy(false));
+		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, 0, new Privacy(false));
 	}
 }

@@ -66,10 +66,17 @@ public class IdentityCookieSerializerTestCase {
 				i);
 
 		// example 3
-		encoded = "eyJpZCI6InFDajlwZlNiRXVnPSIsInZlcnNpb24iOjIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
+		encoded = "eyJpZCI6InFDajlwZlNiRXVnPSIsInZlcnNpb24iOjIsInByb2R1Y2VyIjoiMUNyc2RVTkFvNiIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
 		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity("qCj9pfSbEug=", 2, 0, new Privacy(false)),
+				new Identity("qCj9pfSbEug=", 2, "1CrsdUNAo6", 0, new Privacy(false)),
+				i);
+
+		// example 4: new field "producer"
+		encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsInByb2R1Y2VyIjoiMUNyc2RVTkFvNiIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
+		i = deserializer.deserialize(encoded);
+		Assert.assertEquals(
+				new Identity("jyEB2UHSjLo=", 2, "1CrsdUNAo6", 0, new Privacy(false)),
 				i);
 
 		// other representations

@@ -10,6 +10,8 @@ import st.digitru.model.Privacy;
 
 public abstract class BaseIdentityProducerTestCase {
 
+	protected static final String TEST_PRODUCER = "test";
+
 	protected IdentityProducer producer;
 
 	public BaseIdentityProducerTestCase(IdentityProducer producer) {
@@ -26,10 +28,12 @@ public abstract class BaseIdentityProducerTestCase {
 		Assert.assertEquals(0, i.getKeyv());
 		// ID version is currently 2
 		Assert.assertEquals(2, i.getVersion());
+		// producer field should be set
+		Assert.assertEquals(TEST_PRODUCER, i.getProducer());
 		// privacy.optout defaults to false
 		Assert.assertEquals(false, i.getPrivacy().getOptout());
 		Assert.assertEquals(
-				new Identity(i.getId(), 2, 0, new Privacy(false)),
+				new Identity(i.getId(), 2, TEST_PRODUCER, 0, new Privacy(false)),
 				i);
 	}
 }

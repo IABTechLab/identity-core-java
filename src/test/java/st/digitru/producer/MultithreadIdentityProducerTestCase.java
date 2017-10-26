@@ -19,7 +19,7 @@ import st.digitru.model.Identity;
 public class MultithreadIdentityProducerTestCase extends BaseIdentityProducerTestCase {
 
 	public MultithreadIdentityProducerTestCase() {
-		super(new MultithreadIdentityProducer());
+		super(new MultithreadIdentityProducer(BaseIdentityProducerTestCase.TEST_PRODUCER));
 	}
 
 	@Test

@@ -9,11 +9,21 @@ public class Identity {
 
 	private int version;
 
+	private String producer;
+
 	private int keyv;
 
 	private Privacy privacy;
 
 	public Identity() { }
+
+	public Identity(String id, int version, String producer, int keyv, Privacy privacy) {
+		this.id = id;
+		this.version = version;
+		this.producer = producer;
+		this.keyv = keyv;
+		this.privacy = privacy;
+	}
 
 	public Identity(String id, int version, int keyv, Privacy privacy) {
 		this.id = id;
@@ -28,6 +38,10 @@ public class Identity {
 
 	public int getVersion() {
 		return version;
+	}
+
+	public String getProducer() {
+		return producer;
 	}
 
 	public int getKeyv() {
@@ -45,6 +59,7 @@ public class Identity {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + keyv;
 		result = prime * result + ((privacy == null) ? 0 : privacy.hashCode());
+		result = prime * result + ((producer == null) ? 0 : producer.hashCode());
 		result = prime * result + version;
 		return result;
 	}
@@ -70,6 +85,11 @@ public class Identity {
 				return false;
 		} else if (!privacy.equals(other.privacy))
 			return false;
+		if (producer == null) {
+			if (other.producer != null)
+				return false;
+		} else if (!producer.equals(other.producer))
+			return false;
 		if (version != other.version)
 			return false;
 		return true;
@@ -77,7 +97,8 @@ public class Identity {
 
 	@Override
 	public String toString() {
-		return "Identity [id=" + id + ", version=" + version + ", keyv=" + keyv + ", privacy=" + privacy + "]";
+		return "Identity [id=" + id + ", version=" + version + ", producer=" + producer + ", keyv=" + keyv
+				+ ", privacy=" + privacy + "]";
 	}
 
 }
