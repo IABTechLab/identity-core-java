@@ -14,14 +14,17 @@ import st.digitru.model.Privacy;
 @RunWith(JUnit4.class)
 public class IdentityCookieSerializerTestCase {
 
+	private static final String TEST_PRODUCER = "";
+
 	private IdentityCookieSerializer serializer = new IdentityCookieSerializer();
 
 	private IdentityCookieDeserializer deserializer = new IdentityCookieDeserializer();
 
 	@Test
 	public void simple() throws SerializationException {
-		Identity i1 = new Identity(null, 2, 0, new Privacy(true));
+		Identity i1 = new Identity(null, 2, TEST_PRODUCER, null, new Privacy(true));
 		String serialized = serializer.serialize(i1);
+System.err.println(serialized);
 		Identity i2 = deserializer.deserialize(serialized);
 		Assert.assertNotNull(i2);
 		Assert.assertEquals(i1, i2);
@@ -32,7 +35,7 @@ public class IdentityCookieSerializerTestCase {
 		String encoded = "eyJpZCI6bnVsbCwia2V5diI6MCwicHJpdmFjeSI6eyJvcHRvdXQiOnRydWV9fQ%3D%3D";
 		Identity i = deserializer.deserialize(encoded);
 		Assert.assertNotNull(i);
-		Assert.assertEquals(new Identity(null, 0, 0, new Privacy(true)), i);
+		Assert.assertEquals(new Identity(null, 0, null, 0, new Privacy(true)), i);
 	}
 
 	@Test(expected = SerializationException.class)
@@ -45,7 +48,7 @@ public class IdentityCookieSerializerTestCase {
 		String encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsImtleXYiOjQsImZvb2JhciI6NSwicHJpdmFjeSI6eyJvcHRvdXQiOmZhbHNlLCJ4eXoiOiJmb28ifX0%3D";
 		Identity i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity("jyEB2UHSjLo=", 2, 4, new Privacy(false)),
+				new Identity("jyEB2UHSjLo=", 2, null, 4, new Privacy(false)),
 				i);
 	}
 
@@ -55,28 +58,28 @@ public class IdentityCookieSerializerTestCase {
 		String encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
 		Identity i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity("jyEB2UHSjLo=", 2, 0, new Privacy(false)),
+				new Identity("jyEB2UHSjLo=", 2, null, null, new Privacy(false)),
 				i);
 
 		// example 2
 		encoded = "eyJpZCI6bnVsbCwidmVyc2lvbiI6MiwicHJpdmFjeSI6eyJvcHRvdXQiOnRydWV9fQ%3D%3D";
 		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity(null, 2, 0, new Privacy(true)),
+				new Identity(null, 2, null, null, new Privacy(true)),
 				i);
 
 		// example 3
 		encoded = "eyJpZCI6InFDajlwZlNiRXVnPSIsInZlcnNpb24iOjIsInByb2R1Y2VyIjoiMUNyc2RVTkFvNiIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
 		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity("qCj9pfSbEug=", 2, "1CrsdUNAo6", 0, new Privacy(false)),
+				new Identity("qCj9pfSbEug=", 2, "1CrsdUNAo6", null, new Privacy(false)),
 				i);
 
 		// example 4: new field "producer"
 		encoded = "eyJpZCI6Imp5RUIyVUhTakxvPSIsInZlcnNpb24iOjIsInByb2R1Y2VyIjoiMUNyc2RVTkFvNiIsInByaXZhY3kiOnsib3B0b3V0IjpmYWxzZX19";
 		i = deserializer.deserialize(encoded);
 		Assert.assertEquals(
-				new Identity("jyEB2UHSjLo=", 2, "1CrsdUNAo6", 0, new Privacy(false)),
+				new Identity("jyEB2UHSjLo=", 2, "1CrsdUNAo6", null, new Privacy(false)),
 				i);
 
 		// other representations

@@ -32,6 +32,6 @@ public class SingleThreadIdentityProducer implements IdentityProducer {
 		byte[] bytes = new byte[8];
 		random.nextBytes(bytes);
 		String id = b64.encodeToString(bytes);
-		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, 0, new Privacy(false));
+		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, null, new Privacy(false));
 	}
 }

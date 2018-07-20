@@ -26,6 +26,6 @@ public class MultithreadIdentityProducer implements IdentityProducer {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		random.nextBytes(bytes);
 		String id = b64.encodeToString(bytes);
-		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, 0, new Privacy(false));
+		return new Identity(id, Constants.CURRENT_ID_VERSION, producer, null, new Privacy(false));
 	}
 }

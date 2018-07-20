@@ -25,7 +25,7 @@ public abstract class BaseIdentityProducerTestCase {
 		// IDs should be 8 bytes long
 		Assert.assertEquals(8, Base64.getDecoder().decode(i.getId()).length);
 		// keyv is only relevant for encrypted IDs
-		Assert.assertEquals(0, i.getKeyv());
+		Assert.assertEquals(null, i.getKeyv());
 		// ID version is currently 2
 		Assert.assertEquals(2, i.getVersion());
 		// producer field should be set
@@ -33,7 +33,7 @@ public abstract class BaseIdentityProducerTestCase {
 		// privacy.optout defaults to false
 		Assert.assertEquals(false, i.getPrivacy().getOptout());
 		Assert.assertEquals(
-				new Identity(i.getId(), 2, TEST_PRODUCER, 0, new Privacy(false)),
+				new Identity(i.getId(), 2, TEST_PRODUCER, null, new Privacy(false)),
 				i);
 	}
 }

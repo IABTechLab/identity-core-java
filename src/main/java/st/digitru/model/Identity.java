@@ -1,6 +1,7 @@
 package st.digitru.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Identity {
@@ -9,25 +10,20 @@ public class Identity {
 
 	private int version;
 
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String producer;
 
-	private int keyv;
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Integer keyv;
 
 	private Privacy privacy;
 
 	public Identity() { }
 
-	public Identity(String id, int version, String producer, int keyv, Privacy privacy) {
+	public Identity(String id, int version, String producer, Integer keyv, Privacy privacy) {
 		this.id = id;
 		this.version = version;
 		this.producer = producer;
-		this.keyv = keyv;
-		this.privacy = privacy;
-	}
-
-	public Identity(String id, int version, int keyv, Privacy privacy) {
-		this.id = id;
-		this.version = version;
 		this.keyv = keyv;
 		this.privacy = privacy;
 	}
@@ -44,7 +40,7 @@ public class Identity {
 		return producer;
 	}
 
-	public int getKeyv() {
+	public Integer getKeyv() {
 		return keyv;
 	}
 
@@ -57,7 +53,7 @@ public class Identity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + keyv;
+		result = prime * result + ((keyv == null) ? 0 : keyv.hashCode());
 		result = prime * result + ((privacy == null) ? 0 : privacy.hashCode());
 		result = prime * result + ((producer == null) ? 0 : producer.hashCode());
 		result = prime * result + version;
@@ -78,7 +74,10 @@ public class Identity {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (keyv != other.keyv)
+		if (keyv == null) {
+			if (other.keyv != null)
+				return false;
+		} else if (!keyv.equals(other.keyv))
 			return false;
 		if (privacy == null) {
 			if (other.privacy != null)

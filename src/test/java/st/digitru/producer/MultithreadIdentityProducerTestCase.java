@@ -38,7 +38,7 @@ public class MultithreadIdentityProducerTestCase extends BaseIdentityProducerTes
 			tasks.add(task);
 		}
 		for (ForkJoinTask<String> task : tasks) {
-			uniqueIds.put(task.get(), new Integer(1));
+			uniqueIds.put(task.get(), 1);
 		}
 		Assert.assertEquals(taskCount, uniqueIds.size());
 	}
