@@ -21,7 +21,7 @@ Platform members of the DigiTrust organization who are interested in embedded Di
 <dependency>
   <groupId>st.digitru</groupId>
   <artifactId>identity-core</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
 </dependency>
 ```
 
